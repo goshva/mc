@@ -1,0 +1,24 @@
+<html>
+	<ul>
+        {% for good in goods %}
+            <li>{{good}}</li>
+            <li>{{good.Author}}</li>
+            <li>{{good.Title}}</li>
+            <li>{{good.Discription}}</li>
+            <li>{{good.Text }}</li>
+            <li>{{good.Kind }}</li>
+            <li>{{good.Name }}</li>
+            <li>{{good.Photo_url }}</li>
+            <li>{{good.Article }}</li>
+            <li>{{good.Color }}</li>
+            <li>{{good.Price_5k}}</li>
+            <li>{{good.Price_10k}}</li>
+            <li>{{good.Price_20k}}</li>
+            <li>{{good.Price_many}}</li>
+            <li>{{good.Size }}</li>
+            <li>{{good.Weight }}</li>
+            <li>{{good.Created_date }}</li>
+            <li>{{good.Published_date }}</li>
+        {% endfor %}
+	</ul>
+</html>
