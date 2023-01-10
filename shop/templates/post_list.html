@@ -1,24 +1,42 @@
 <html>
-	<ul>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <div class="container">
+        <div class="row">
+
+
+
 {% for post in posts %}
-            <li>{{post}}</li>
-            <li>{{post.Author}}</li>
-            <li>{{post.Title}}</li>
-            <li>{{post.Discription}}</li>
-            <li>{{post.Text }}</li>
-            <li>{{post.Kind }}</li>
-            <li>{{post.Name }}</li>
-            <li>{{post.Photo_url }}</li>
-            <li>{{post.Article }}</li>
-            <li>{{post.Color }}</li>
-            <li>{{post.Price_5k}}</li>
-            <li>{{post.Price_10k}}</li>
-            <li>{{post.Price_20k}}</li>
-            <li>{{post.Price_many}}</li>
-            <li>{{post.Size }}</li>
-            <li>{{post.Weight }}</li>
-            <li>{{post.Created_date }}</li>
-            <li>{{post.Published_date }}</li>
+<div class="col-sm">
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{post.photo_url }}" alt="Card image cap">
+        <div class="card-body">
+        <h5 class="card-title">{{post.article}}</h5>
+        <p class="card-text">
+            <ul>
+                <li>{{post.title}}</li>
+                <li>{{post.discription}}</li>
+                <li>{{post.text }}</li>
+                <li>{{post.kind }}</li>
+                <li>{{post.name }}</li>
+                <li>{{post.article }}</li>
+                <li>{{post.color }}</li>
+                <li>{{post.price_5k}}</li>
+                <li>{{post.price_10k}}</li>
+                <li>{{post.price_20k}}</li>
+                <li>{{post.price_many}}</li>
+                <li>{{post.size }}</li>
+                <li>{{post.weight }}</li>
+                <li>{{post.created_date }}</li>
+                <li>{{post.published_date }}</li>
+            </ul>
+        </p>
+        <a href="#{{post.id }}" class="btn btn-primary">Заказать</a>
+        </div>
+    </div>
+</div>
+
+
 {% endfor %}
-	</ul>
+        </div>
+    </div>
 </html>
