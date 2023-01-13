@@ -2,6 +2,15 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
+class images(models.Model):
+    id_no=models.IntegerField()
+    name=models.CharField(max_length=20)  
+    loc=models.CharField(max_length=20)    
+    image=models.ImageField(upload_to='images')   
+ 
+    def __str__(self):        
+        return self.name
+        
 class Good(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
@@ -10,6 +19,7 @@ class Good(models.Model):
     kind = models.CharField(max_length=300)
     name = models.CharField(max_length=200)
     photo_url = models.CharField(max_length=1000)
+    photo = images
     article = models.CharField(max_length=20)
     color = models.CharField(max_length=250)
     price_5k = models.FloatField()
