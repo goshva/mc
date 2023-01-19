@@ -5,7 +5,13 @@
       {% for good in goods %}
       <div class="col-sm">
         <div class="card m-1 p-1" >
-          <img class="card-img-top" src="{{good.photo_url }}" alt="Card image cap" />
+          {% if good.image %}
+            <img class="card-img-top" src="{{ good.image.url }}" alt="Card image cap" />
+          {% else %}  
+            <a href="/admin/shop/good/{{ good.id }}/change/" id="{{ good.id }}" target="_blank">
+              <img class="card-img-top" src="{{ good.photo_url }}" alt="Card image cap"  style="border: 1px solid red;"/>
+            </a>              
+          {% endif %}
           <div class="card-body">
             <h5 class="card-title">{{good.article}}</h5>
             <p class="card-text"></p>
