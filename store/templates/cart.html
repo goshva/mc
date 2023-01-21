@@ -24,7 +24,15 @@
                 {% for product in products %}
                 <tr>
                     <td>{{forloop.counter}}</td>
-                    <td><img style="height: 80px;" class="rounded-circle" src="{{product.image.url}}" alt=""></td>
+                    <td>
+                      {% if product.image %}
+                        <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap" />
+                      {% else %}  
+                        <a href="admin/store/products/{{ product.id }}/change/" id="{{ product.id }}" target="_blank">
+                        <img class="card-img-top" src="{{ product.photo_url }}" alt="Card image cap"  style="border: 1px solid red;"/>
+                        </a>              
+                      {% endif %}
+                    </td>
                     <td>{{product.name}}</td>
                     <td>{{product.price|currency}}</td>
                     <td>{{product|cart_quantity:request.session.cart}}</td>

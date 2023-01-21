@@ -23,7 +23,7 @@ def cart_quantity(product, cart):
 
 @register.filter (name='price_total')
 def price_total(product, cart):
-    return product.price * cart_quantity (product, cart)
+    return product.price_5k * cart_quantity (product, cart)  #make price switch by sum over 5000, 10000, 15000, 20000 (discount from quantity * price)
 
 
 @register.filter (name='total_cart_price')

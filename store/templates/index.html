@@ -31,7 +31,7 @@
 					{% if product.image %}
 						<img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap" />
 					{% else %}  
-						<a href="/admin/shop/good/{{ product.id }}/change/" id="{{ product.id }}" target="_blank">
+						<a href="admin/store/products/{{ product.id }}/change/" id="{{ product.id }}" target="_blank">
 						<img class="card-img-top" src="{{ product.photo_url }}" alt="Card image cap"  style="border: 1px solid red;"/>
 						</a>              
 					{% endif %}
