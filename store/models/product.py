@@ -29,7 +29,7 @@ class Products(models.Model):
         return Products.objects.filter (id__in=ids)
     @staticmethod
     def get_all_products():
-        return Products.objects.all()
+        return Products.objects.all().exclude(image='')
 
     @staticmethod
     def get_all_products_by_categoryid(category_id):
