@@ -7,7 +7,13 @@ from .models.orders import Order
 
 class AdminProduct(admin.ModelAdmin):
     list_display = ['name', 'price', 'category']
+    readonly_fields = ('thumbnail_preview',)
 
+    def thumbnail_preview(self, obj):
+        return obj.thumbnail_preview
+
+    thumbnail_preview.short_description = 'Thumbnail Preview'
+    thumbnail_preview.allow_tags = True
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name']
