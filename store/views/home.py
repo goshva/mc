@@ -20,7 +20,7 @@ class Index(View):
             if quantity:
                 if fixed:
                     if remove:
-                        if quantity<=1:
+                        if quantity<=1 or (quantity - int(fixed)) <= 1:
                             cart.pop(product)
                         else:
                             cart[product] = quantity - int(fixed)
