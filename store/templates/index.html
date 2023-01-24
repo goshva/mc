@@ -94,26 +94,22 @@
 							</li>
 						  </ul>	
 						</div>	
-						<input type="number" value="1" max="5000" min="1" style="max-width: 100%; width: 100%;">				
+							
 						<!-- {{product | is_in_cart:request.session.cart }} -->
 					</div>
 
 					<div class="card-footer p-0 no-gutters">
-
 						{% if product|is_in_cart:request.session.cart %}
-						<div class="row no-gutters">
-							<form action="/#{{product.id}}" class="col-2 " method="post">
+						<div class="row no-gutters" style="display: flex;">
+
+							<form action="/#{{product.id}}" method="post" style="display: flex; gap: 5px;">
 								{% csrf_token %}
 								<input hidden type="text" name='product' value='{{product.id}}'>
-								<input hidden type="text" name='remove' value='True'>
-								<input type="submit" value=" - " class="btn btn-block btn-ligth border-right">
+								<input type="submit" name='add' value=" + " class="btn btn-block btn-ligth border-left" style="flex-basis: 25%;">
+								<input type="number" value="1" max="5000" min="1" name='fixed' style="flex-basis:50%">
+								<input type="submit" name='remove' value=" - " class="btn btn-block btn-ligth border-right" style="flex-basis: 25%;">
 							</form>
 							<div class="text-center col btn btn-warning">{{product|cart_quantity:request.session.cart}} в корзине</div>
-							<form action="/#{{product.id}}" class="col-2 " method="post">
-								{% csrf_token %}
-								<input hidden type="text" name='product' value='{{product.id}}'>
-								<input type="submit" value=" + " class="btn btn-block btn-ligth border-left">
-							</form>
 						</div>
 						{% else %}
 						<form action="/#{{product.id}}" method="POST" class="btn-block">
