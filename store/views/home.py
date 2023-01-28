@@ -25,7 +25,10 @@ class Index(View):
                         else:
                             cart[product] = quantity - int(fixed)
                     if add:
-                        cart[product]  = quantity+int(fixed)
+                        if quantity + int(fixed) > 1000:
+                            cart[product] = 1000
+                        else:
+                            cart[product]  = quantity+int(fixed)
             else:
                 cart[product] = 1
         else:

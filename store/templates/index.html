@@ -100,13 +100,13 @@
 					<div class="card-footer p-0 no-gutters">
 
 						{% if product|is_in_cart:request.session.cart %}
-						<div class="row no-gutters" style="display: flex;">
-							<form action="/#{{product.id}}" method="post" style="display: flex; gap: 5px;">
+						<div class="row no-gutters">
+							<form action="/#{{product.id}}" method="post" class="col" style="display: flex; gap: 5px;">
 								{% csrf_token %}
 								<input hidden type="text" name='product' value='{{product.id}}'>
-								<input type="submit" name='add' value=" + " class="btn btn-block btn-ligth border-left" style="flex-basis: 25%;">
-								<input type="number" value="1" max="5000" min="1" name='fixed' style="flex-basis:50%">
-								<input type="submit" name='remove' value=" - " class="btn btn-block btn-ligth border-right" style="flex-basis: 25%;">
+								<input type="submit" name='add' value=" + " class="btn btn-block btn-ligth border-left" >
+								<input type="number" value="1" max="1000" min="1" name='fixed' >
+								<input type="submit" name='remove' value=" - " class="btn btn-block btn-ligth border-right" >
 							</form>	
 							<div class="text-center col btn btn-warning">{{product|cart_quantity:request.session.cart}} в корзине</div>
 						</div>
