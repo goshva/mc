@@ -1,5 +1,11 @@
 # mc
 
+## run
+
+### на сервере 46.63.179.85  /goshva/mc
+(MC) goshva@mc:~/mc$ python manage.py runserver 192.168.1.157:9000
+
+
 ## TODO:
 ### Функционал
 
