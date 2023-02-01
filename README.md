@@ -2,7 +2,12 @@
 
 ## run
 
+### установка
+
+pip3 install -r requirements.txt
+
 ### на сервере 46.63.179.85  /goshva/mc
+
 (MC) goshva@mc:~/mc$ python manage.py runserver 192.168.1.157:9000
 
 

@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'store'
+    'store',
+    'sorl.thumbnail'
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = "/image/download/"
 MEDIA_ROOT = BASE_DIR
+DEFAULT_AUTO_FIELD="django.db.models.AutoField"
