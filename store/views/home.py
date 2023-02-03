@@ -20,21 +20,18 @@ class Index(View):
             if quantity:
                 if fixed:
                     if remove:
-                        if quantity<=1 or (quantity - int(fixed)) <= 1:
+                        if quantity<=1 or (quantity - int(fixed)) < 1:
                             cart.pop(product)
                         else:
                             cart[product] = quantity - int(fixed)
                     if add:
-                        if quantity + int(fixed) > 1000:
-                            cart[product] = 1000
-                        else:
                             cart[product]  = quantity+int(fixed)
             else:
                 cart[product] = 1
         else:
             cart = {}
             cart[product] = 1
-
+        print(product)
         request.session['cart'] = cart
         print('cart' , request.session['cart'])
         return redirect('homepage')
