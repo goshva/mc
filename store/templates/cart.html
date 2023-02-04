@@ -35,17 +35,17 @@
                       {% endif %}
                     </td>
                     <td>{{product.name}}</td>
-                    {% if products|total_cart_quantity:request.session.cart >= 20000 %}
+                    {% if products|total_cart_price:request.session.cart >= 20000 %}
                     <td>{{product.price_many|currency}}</td>
                     <td>{{product|cart_quantity:request.session.cart}}</td>
                     <td>{{product|many_discount:request.session.cart|currency}}</td>
 
-                    {% elif products|total_cart_quantity:request.session.cart >= 10000 %}
+                    {% elif products|total_cart_price:request.session.cart >= 10000 %}
                     <td>{{product.price_20k|currency}}</td>
                     <td>{{product|cart_quantity:request.session.cart}}</td>
                     <td>{{product|20k_discount:request.session.cart|currency}}</td>
 
-                    {% elif  products|total_cart_quantity:request.session.cart >= 5000 %}
+                    {% elif  products|total_cart_price:request.session.cart >= 5000 %}
                     <td>{{product.price_10k|currency}}</td>
                     <td>{{product|cart_quantity:request.session.cart}}</td>
                     <td>{{product|10k_discount:request.session.cart|currency}}</td>

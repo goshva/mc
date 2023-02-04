@@ -23,7 +23,6 @@ def cart_quantity(product, cart):
 
 @register.filter (name='price_total')
 def price_total(product, cart):
-    
     return product.price_5k * cart_quantity (product, cart)  #make price switch by sum over 5000, 10000, 15000, 20000 (discount from quantity * price)
 
 @register.filter (name='10k_discount')
@@ -40,26 +39,27 @@ def disc_many(product, cart):
 
 @register.filter (name='total_cart_price')
 def total_cart_price(products, cart):
-    qtotal = quantity_total(products, cart)
-    sum = 0;
-    if qtotal >= 5000:
-        for p in products:
-            sum += disc_10k (p, cart)
-    elif qtotal >= 10000:
-        for p in products:
-            sum += disc_20k (p, cart)
-    elif qtotal >= 20000:
+    sum = 0
+    for p in products:
+            sum += price_total (p, cart)
+    print(sum)
+    if sum >= 20000:
+        sum = 0
         for p in products:
             sum += disc_many (p, cart)
-    else:
+        return sum
+    elif sum >= 10000:
+        sum = 0
         for p in products:
-            sum += price_total (p, cart)
-    return sum
+            sum += disc_20k (p, cart)
+        return sum 
+    if sum >= 5000:
+        sum = 0
+        for p in products:
+            sum += disc_10k (p, cart)
+        return sum    
+    else: 
+        return sum
+     
+    
 
-@register.filter (name='total_cart_quantity')
-def quantity_total(products, cart):
-    qu = 0
-    for p in products:
-        qu += cart_quantity(p, cart)
-
-    return qu
