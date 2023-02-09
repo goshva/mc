@@ -53,7 +53,7 @@ def total_cart_price(products, cart):
         for p in products:
             sum += disc_20k (p, cart)
         return sum 
-    if sum >= 5000:
+    elif sum >= 5000:
         sum = 0
         for p in products:
             sum += disc_10k (p, cart)
