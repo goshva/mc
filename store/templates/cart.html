@@ -18,6 +18,7 @@
                     <th>Цена</th>
                     <th>Кол-во</th>
                     <th>Итого</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -39,21 +40,54 @@
                     <td>{{product.price_many|currency}}</td>
                     <td>{{product|cart_quantity:request.session.cart}}</td>
                     <td>{{product|many_discount:request.session.cart|currency}}</td>
+                      <td>
+                        <form action="/cart" method="post" class="col" style="display: flex; gap: 5px;">
+                          {% csrf_token %}
+                          <input hidden type="text" name='product' value='{{product.id}}'>
+                          <input type="submit" name='remove' value="x"
+                            class="btn btn-danger">
+                        </form>
+                      </td>
 
                     {% elif products|total_cart_price:request.session.cart >= 10000 %}
                     <td>{{product.price_20k|currency}}</td>
                     <td>{{product|cart_quantity:request.session.cart}}</td>
                     <td>{{product|20k_discount:request.session.cart|currency}}</td>
+                      <td>
+                        <form action="/cart" method="post" class="col" style="display: flex; gap: 5px;">
+                          {% csrf_token %}
+                          <input hidden type="text" name='product' value='{{product.id}}'>
+                          <input type="submit" name='remove' value="x"
+                            class="btn btn-danger">
+                        </form>
+                      </td>
 
                     {% elif  products|total_cart_price:request.session.cart >= 5000 %}
                     <td>{{product.price_10k|currency}}</td>
                     <td>{{product|cart_quantity:request.session.cart}}</td>
                     <td>{{product|10k_discount:request.session.cart|currency}}</td>
+                    <td>
+                      <form action="/cart" method="post" class="col" style="display: flex; gap: 5px;">
+                        {% csrf_token %}
+                        <input hidden type="text" name='product' value='{{product.id}}'>
+                        <input type="submit" name='remove' value="x"
+                          class="btn btn-danger">
+                      </form>
+                    </td>
 
                     {% else %}
                     <td>{{product.price_5k|currency}}</td>
                     <td>{{product|cart_quantity:request.session.cart}}</td>
-                    <td>{{product|price_total:request.session.cart|currency}}</td>
+                    <td>{{product|price_total:request.session.cart|currency}} 
+                      </td>
+                    <td>
+                      <form action="/cart" method="post" class="col" style="display: flex; gap: 5px;">
+                        {% csrf_token %}
+                        <input hidden type="text" name='product' value='{{product.id}}'>
+                        <input type="submit" name='remove' value="x"
+                          class="btn btn-danger">
+                      </form>
+                    </td>
                     {% endif %}
                 </tr>
 
@@ -63,7 +97,7 @@
               
             <tfoot>
                 <tr>
-                    <th colspan="4"></th>
+                    <th colspan="5"></th>
                     <th class="" colspan="">Total</th>
                     <th>{{products|total_cart_price:request.session.cart|currency}}</th>
                 </tr>
