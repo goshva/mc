@@ -5,75 +5,57 @@
 {% load thumbnail %}
 
 
-<div class="container">
-   <div class="border rounded p-4 m-4">
-        <p class="display-4 pl-4 ml-4 btn btn-success rounded-pill">Ваша корзина</p>
-        <hr>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>№</th>
-                    <th></th>
-                    <th>Товар</th>
-                    <th>Цена</th>
-                    <th>Кол-во</th>
-                    <th>Итого</th>
-                </tr>
-            </thead>
-            <tbody>
-              
-                {% for product in products %}
-                <tr>
-                    <td>{{forloop.counter}}</td>
-                    <td>
+<div class="container col col-sm-8 col-lg-7 col-xl-5 p-3 my-3 border rounded border-warning">
 
-                      {% if product.image %}
-                        {% thumbnail product.image "153x204" padding=True crop="center" as item %}
-                        <img class="card-img-top" src="{{ item.url }}" alt="Card image cap" width="{{ item.width }}" height="{{ item.height }}"/>
-                        {% endthumbnail %}
-       
-                      {% endif %}
-                    </td>
-                    <td>{{product.name}}</td>
-                    {% if products|total_cart_price:request.session.cart >= 20000 %}
-                    <td>{{product.price_many|currency}}</td>
-                    <td>{{product|cart_quantity:request.session.cart}}</td>
-                    <td>{{product|many_discount:request.session.cart|currency}}</td>
-
-                    {% elif products|total_cart_price:request.session.cart >= 10000 %}
-                    <td>{{product.price_20k|currency}}</td>
-                    <td>{{product|cart_quantity:request.session.cart}}</td>
-                    <td>{{product|20k_discount:request.session.cart|currency}}</td>
-
-                    {% elif  products|total_cart_price:request.session.cart >= 5000 %}
-                    <td>{{product.price_10k|currency}}</td>
-                    <td>{{product|cart_quantity:request.session.cart}}</td>
-                    <td>{{product|10k_discount:request.session.cart|currency}}</td>
-
-                    {% else %}
-                    <td>{{product.price_5k|currency}}</td>
-                    <td>{{product|cart_quantity:request.session.cart}}</td>
-                    <td>{{product|price_total:request.session.cart|currency}}</td>
-                    {% endif %}
-                </tr>
-
-                {% endfor %}
-               
-            </tbody>
-              
-            <tfoot>
-                <tr>
-                    <th colspan="4"></th>
-                    <th class="" colspan="">Total</th>
-                    <th>{{products|total_cart_price:request.session.cart|currency}}</th>
-                </tr>
-            </tfoot>
-        </table>
-        <hr>
-        <div class="m-3 p-3">
-            <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-warning border rounded  col-lg-3 float-right">Подтвердить</a>
+    <h2 class="border-bottom border-warning">Ваша корзина</h2>
+    {% for product in products %}
+    <div class="cart-item my-3 border-bottom border-warning">
+      <h5>{{product.name}}</h5>
+      <div class="item row my-3">
+        <div class="col-8 col-lg-6 item-image">
+          
+          {% if product.image %}
+            {% thumbnail product.image "153x204" padding=True crop="center" as item %}
+            <img class="card-img-top" src="{{ item.url }}" alt="Card image cap" style="width: 204px;"/>
+            {% endthumbnail %}
+          {% endif %}
         </div>
-   </div>
+        <div class="col-4 col-lg-4 item-info">
+          <p>Количество: <br>{{product|cart_quantity:request.session.cart}} шт.</p>
+
+          {% if products|total_cart_price:request.session.cart >= 20000 %}
+          <p>Цена за шт: <br> {{product.price_many|currency}}</p>
+          <p>Итого: <br> {{product|many_discount:request.session.cart|currency}}</p>
+
+          {% elif products|total_cart_price:request.session.cart >= 10000 %}
+          <p>Цена за шт: <br> {{product.price_20k|currency}}</p>
+          <p>Итого: <br> {{product|20k_discount:request.session.cart|currency}}</p>
+
+          {% elif  products|total_cart_price:request.session.cart >= 5000 %}
+          <p>Цена за шт: <br> {{product.price_10k|currency}}</p>
+          <p>Итого: <br> {{product|10k_discount:request.session.cart|currency}}</p>
+
+          {% else %}
+          <p>Цена за шт: <br> {{product.price_5k|currency}}</p>
+          <p>Итого: <br> {{product|price_total:request.session.cart|currency}}</p>
+          {% endif %}
+          <form action="/cart" method="post">
+            {% csrf_token %}
+            <input hidden type="text" name='product' value='{{product.id}}'>
+            <input type="submit" name='remove' value="Удалить"
+              class="btn btn-outline-warning btn-block">
+          </form>
+        </div>
+    </div>
+  </div>
+  
+  {% endfor %}
+  <div class="cart-total px-3 mx-3" style="display: flex; justify-content: flex-end;">
+    <p><b> Total: </b>{{products|total_cart_price:request.session.cart|currency}}</p>
+  </div>
+  <div class="p-3 m-3">
+    <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-warning border rounded  col-lg-3 float-right">Подтвердить</a>
+</div>
 </div>
 
 <!-- modal -->
