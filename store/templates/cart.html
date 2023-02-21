@@ -51,11 +51,17 @@
   
   {% endfor %}
   <div class="cart-total px-3 mx-3" style="display: flex; justify-content: flex-end;">
-    <p><b> Total: </b>{{products|total_cart_price:request.session.cart|currency}}</p>
+    <p><b> Итого: </b>{{products|total_cart_price:request.session.cart|currency}}</p>
   </div>
+  {% if products|total_cart_price:request.session.cart > 0 %}
   <div class="p-3 m-3">
     <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-warning border rounded  col-lg-3 float-right">Подтвердить</a>
-</div>
+  </div>
+  {% else %}
+    <div class="p-3 m-3">
+      <a href="#" class="btn btn-secondary border rounded  col-lg-3 float-right">Подтвердить</a>
+    </div>
+  {% endif %}
 </div>
 
 <!-- modal -->
@@ -87,7 +93,7 @@
                     <input type="text" name="phone" id="" class="form-control" placeholder="" aria-describedby="helpId">
                   </div>
 
-                  <input type="submit" class="btn float-right btn-outline-warning col-lg-6" value="Подтвердить">
+                  <input type="submit" class="btn float-right btn-outline-warning col-lg-6" value="Check out">
             </form>
           </div>
         </div>
