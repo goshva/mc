@@ -9,9 +9,9 @@
 <div class="container-fluid mt-3">
 	<div class="row">
 
+		
 
 		<!-- filter -->
-
 		<div class="col-lg-3 mx-auto mb-3">
 			<div class="list-group">
 
@@ -46,6 +46,11 @@
 							Подробнее...
 						</button>
 						</p>
+
+						{% if product|is_in_cart:request.session.cart %}
+						<p>{{product|cart_quantity:request.session.cart}} в корзине</p>
+						{% endif %}
+
 						<div class="modal" id="modalWin{{product.id}}">
 							<div class="modal-dialog">
 								<div class="modal-content">
@@ -133,23 +138,22 @@
 					<div class="card-footer p-0 no-gutters">
 
 						{% if product|is_in_cart:request.session.cart %}
+						
 						<div class="row no-gutters">
-							<form action="/#{{product.id}}" method="post" class="col" style="display: flex; gap: 5px;">
+							<form action="/#{{product.id}}" method="post" class="col d-flex  justify-content-between"  style="display: flex; gap: 5px;">
 								{% csrf_token %}
 								<input hidden type="text" name='product' value='{{product.id}}'>
-								<input type="submit" name='add' value=" + " class="btn btn-block btn-ligth border-left">
-								<input type="number" value="1" max="99999" min="1" name='fixed'>
-								<input type="submit" name='remove' value=" - "
-									class="btn btn-block btn-ligth border-right">
+								<input class="col-5 form-control" type="number" value="1" max="99999" min="1" name='fixed'>
+								<input class="text-center float-right col-6 btn btn-warning" type="submit" name='add'
+								value=" В корзину">
 							</form>
-							<div class="text-center col btn btn-warning">{{product|cart_quantity:request.session.cart}}
-								в корзине</div>
+							
 						</div>
 						{% else %}
 						<form action="/#{{product.id}}" method="POST" class="btn-block">
 							{% csrf_token %}
 							<input hidden type="text" name='product' value='{{product.id}}'>
-							<input type="submit" class="float-right btn btn-warning form-control" value="В корзину">
+							<input type="submit" class="btn btn-warning form-control" value="Добавить в корзину">
 						</form>
 						{% endif %}
 

@@ -21,7 +21,17 @@
           {% endif %}
         </div>
         <div class="col-4 col-lg-4 item-info">
-          <p>Количество: <br>{{product|cart_quantity:request.session.cart}} шт.</p>
+          <p>Количество: </p>
+            <div class="row">
+              <form action="cart" method="post" class="col" style="display: flex; gap: 5px;">
+								{% csrf_token %}
+								<input hidden type="text" name='product' value='{{product.id}}'>
+								<input type="submit" name='inc' value=" + " class="btn">
+								<p class="text-center">{{product|cart_quantity:request.session.cart}} шт.</p>
+								<input type="submit" name='dec' value=" - "
+									class="btn ">
+							</form>
+        </div>
 
           {% if products|total_cart_price:request.session.cart >= 20000 %}
           <p>Цена за шт: <br> {{product.price_many|currency}}</p>

@@ -18,11 +18,21 @@ class Cart(View):
         remove = request.POST.get('remove')
         product = request.POST.get('product')
         cart = request.session.get('cart')
+        inc = request.POST.get('inc')
+        dec = request.POST.get('dec')
 
         if remove:
             print(product)
             cart.pop(product)
         
+        if inc:
+            cart[product] += 1
+        
+        if dec:
+            if(cart[product] - 1) == 0:
+               cart.pop(product)
+            else: 
+                cart[product] -= 1
         request.session['cart'] = cart
         return redirect('cart')
 

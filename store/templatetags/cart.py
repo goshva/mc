@@ -20,6 +20,13 @@ def cart_quantity(product, cart):
             return cart.get (id)
     return 0;
 
+@register.filter (name='cart_total')
+def cart_total(products, cart):
+    total = 0
+    for p in products:
+        total += cart_quantity(p, cart)
+    return total
+
 
 @register.filter (name='price_total')
 def price_total(product, cart):

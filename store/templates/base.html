@@ -1,4 +1,7 @@
 {% load static %}
+{% load cart %}
+
+
 <!doctype html>
 <html lang="ru">
 
@@ -46,6 +49,46 @@
   text-decoration: none;
 }
 
+.cart-icon{
+  position: fixed;
+  top: 15%;
+  left: 90%;
+  z-index: 1;
+  opacity: 75%;
+  background: white;
+
+  border: 1px solid orange;
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  transform: scale(1);
+  transition: transform .5s;
+}
+.cart-icon:hover{
+  transform: scale(1.25);
+  transition: transform .5s;
+}
+.bi {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 50px;
+  height: 50px;
+}
+.cart-link{
+  color: orange;
+}
+.cart-quant{
+  position: absolute;
+  top: 75%;
+  left: 65%;
+  width: 25px;
+  height: 25px;
+  border: 1px solid white;
+  border-radius: 50%;
+  background-color: orange;
+  text-align: center;
+}
   </style>
 </head>
 
@@ -59,6 +102,10 @@
   text-white">
     <a class="navbar-brand ms-3 text-dark " href="/">
     <img src="{% static 'logo.png' %}" style="width:50px;height:50px,color:text-light;"></a>
+
+    <a class="d-block d-sm-none nav-link" href="/cart" style="color: black">В корзине
+      <span class="badge badge-warning">{{products|cart_total:request.session.cart}}</span>
+      <span class="sr-only">(current)</span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -82,11 +129,6 @@
           <a class="nav-link" href="/contacts">Контакты</a>
         </li>
         
-        <li class="nav-item active">
-          <a class="nav-link" href="/cart">В корзине
-            <span class="badge badge-warning">{{request.session.cart.keys|length}}</span>
-            <span class="sr-only">(current)</span></a>
-        </li>
 
         {% if request.session.customer %}
         
@@ -113,6 +155,18 @@
     </div>
   </nav>
 
+  {% if request.session.cart %}
+  <div class="cart-icon d-none d-sm-block">
+    <a href="cart" class="cart-link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+        <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+      </svg>
+    </a>
+    <span class="cart-quant">
+      {{products|cart_total:request.session.cart}}
+    </span>
+  </div>
+  {% endif %}
   <!---->
 
   {% block content %}{% endblock %}
@@ -152,14 +206,6 @@
               </li>
               <li class="site-main-item">
                 <a href="/contacts">Контакты</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-11 col-lg-2 offset-1 offset-lg-0">
-            <h5>КАТАЛОГ</h5>
-            <ul class="site-cat">
-              <li class="site-main-item">
-                <a href="#">Букеты</a>
               </li>
             </ul>
           </div>
