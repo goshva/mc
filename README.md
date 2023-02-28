@@ -2,6 +2,9 @@
 
 ## run
 
+$ python -m venv env
+$ source env/Scripts/activate
+
 ### установка
 
 pip3 install -r requirements.txt
