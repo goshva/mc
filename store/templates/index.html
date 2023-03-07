@@ -150,10 +150,10 @@
 							
 						</div>
 						{% else %}
-						<form action="/#{{product.id}}" method="POST" class="btn-block">
+						<form action="/#{{product.id}}" id="addInCart" method="POST" class="btn-block">
 							{% csrf_token %}
-							<input hidden type="text" name='product' value='{{product.id}}'>
-							<input type="submit" class="btn btn-warning form-control" value="Добавить в корзину">
+							<input hidden type="text" name='product' id="productId" value='{{product.id}}'>
+							<input   type="submit" class="btn btn-warning form-control" value="Добавить в корзину">
 						</form>
 						{% endif %}
 
@@ -164,6 +164,7 @@
 			</div>
 		</div>
 	</div>
+	<script src="../static//scripts/addInCart.js"></script>
 </div>
 
 
