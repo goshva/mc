@@ -3,67 +3,67 @@ let formElem = document.getElementById('addInCart')
 let csrfToken = getCookie('csrftoken');
 // const data = new URLSearchParams(new FromData(formElem));
 // Отправка запроса по кнопке
-// btnSub.onclick = function(e) {
+btnSub.onclick = function(e) {
 
-//     e.preventDefault();
+    e.preventDefault();
 
-//     if(document.getElementsByName('product')){
-//         let prodId = document.getElementById('productId').value;
-//         alert(prodId);
+    if(document.getElementsByName('product')){
+        let prodId = document.getElementById('productId').value;
+        alert(prodId);
 
-//         sendRequest(prodId)
-//     }
-// }
+        sendRequest(prodId)
+    }
+}
 
-// function sendRequest(prodId) {
-//     fetch("cart", {
-//         method: 'POST',
-//         headers: {
-//             'Accept': 'application/json',
-//             'X-Requested-With': 'XMLHttpRequest',
-//             "X-CSRFToken": csrfToken,
-//         },
-//         body: JSON.stringify({
-//             'product': prodId
-//         })
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         console.log(data)
-//     })
-//     .catch(er => console.log("Error: ", er))
-// }
+function sendRequest(prodId) {
+    fetch("cart", {
+        method: 'POST',
+        headers: {
+            "Accept": 'application/json',
+            "Content-Type": 'application/json',
+            "X-CSRFToken": csrfToken,
+        },
+        body: JSON.stringify({
+            'product': prodId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+    })
+    .catch(er => console.log("Error: ", er))
+}
 
 
 // Отправка запроса через форму
 
-formElem.onsubmit = async (e) => {
+// formElem.onsubmit = async (e) => {
 
-    e.preventDefault();
+//     e.preventDefault();
 
-    await fetch('cart', {
-        method: 'POST',
-        body: new FormData(formElem)
-    })
-    .then(response => {
-        console.log(response);
-        response.json();
-    })
-    .then(data => console.log(data))
-    .catch(er => console.log("Error: ", er))
+//     await fetch('cart', {
+//         method: 'POST',
+//         body: new FormData(formElem)
+//     })
+//     .then(response => {
+//         console.log(response);
+//         response.json();
+//     })
+//     .then(data => console.log(data))
+//     .catch(er => console.log("Error: ", er))
 
 
 
-    // let response = await fetch('/cart', {
-    //     method: 'POST',
-    //     body: new FormData(formElem),
-    // });
+//     // let response = await fetch('/cart', {
+//     //     method: 'POST',
+//     //     body: new FormData(formElem),
+//     // });
 
-    // console.log(response.json())
-    // let res = await response.json()
+//     // console.log(response.json())
+//     // let res = await response.json()
 
-    // onsole.log(response)
-}
+//     // onsole.log(response)
+// }
 
 
 
