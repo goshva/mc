@@ -1,6 +1,6 @@
 let btnSub = document.getElementById('addInCart');
 let formElem = document.getElementById('addInCart')
-let csrfToken = getCookie('csrftoken');
+let csrfToken = getCookie('csrftoken')
 // const data = new URLSearchParams(new FromData(formElem));
 // Отправка запроса по кнопке
 btnSub.onclick = function(e) {

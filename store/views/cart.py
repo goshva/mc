@@ -5,34 +5,47 @@ from store.models.customer import Customer
 from django.views import  View
 from store.models.product import Products
 
+from django.http import JsonResponse
+import json
+
 class Cart(View):
     def get(self , request):
         ids = list(request.session.get('cart').keys())
         products = Products.get_products_by_id(ids)
-        print(products)
+        # print(products)
         return render(request , 'cart.html' , {'products' : products} )
 
     def post(self, request):
-        ids = list(request.session.get('cart').keys())
-        products = Products.get_products_by_id(ids)
-        remove = request.POST.get('remove')
-        product = request.POST.get('product')
+        # ids = list(request.session.get('cart').keys())
+        # products = Products.get_products_by_id(ids)
+        # remove = request.POST.get('remove')
+        # product = request.POST.get('product')
         cart = request.session.get('cart')
-        inc = request.POST.get('inc')
-        dec = request.POST.get('dec')
+        # inc = request.POST.get('inc')
+        # dec = request.POST.get('dec')
 
-        if remove:
+        # if remove:
+        #     cart.pop(product)
+        
+        # if inc:
+        #     cart[product] += 1
+        
+        # if dec:
+        #     if(cart[product] - 1) == 0:
+        #        cart.pop(product)
+        #     else: 
+        #         cart[product] -= 1
+        # request.session['cart'] = cart
+        # return redirect('cart')
+
+        if request.method == "POST":
+            print(cart)
+            data = json.loads(request.body)
+            product = int(data['product'])
             print(product)
-            cart.pop(product)
-        
-        if inc:
-            cart[product] += 1
-        
-        if dec:
-            if(cart[product] - 1) == 0:
-               cart.pop(product)
-            else: 
-                cart[product] -= 1
-        request.session['cart'] = cart
-        return redirect('cart')
+            cart[product] = 1
+            # cart[int(product)] += 1
+            request.session['cart'] = cart
+            print(cart[product])
+            return JsonResponse({"status": "success", "product": product})
 
