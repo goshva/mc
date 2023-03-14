@@ -16,16 +16,16 @@ class Cart(View):
         return render(request , 'cart.html' , {'products' : products} )
 
     def post(self, request):
-        # ids = list(request.session.get('cart').keys())
-        # products = Products.get_products_by_id(ids)
-        # remove = request.POST.get('remove')
-        # product = request.POST.get('product')
+        ids = list(request.session.get('cart').keys())
+        products = Products.get_products_by_id(ids)
+        remove = request.POST.get('remove')
+        product = request.POST.get('product')
         cart = request.session.get('cart')
         # inc = request.POST.get('inc')
         # dec = request.POST.get('dec')
-
-        # if remove:
-        #     cart.pop(product)
+        print(product)
+        if remove:
+            cart.pop(product)
         
         # if inc:
         #     cart[product] += 1
@@ -43,9 +43,9 @@ class Cart(View):
             data = json.loads(request.body)
             product = int(data['product'])
             print(product)
-            cart[product] = 1
-            # cart[int(product)] += 1
+            cart[product] = data['prodQuant']
+            quantity = cart.get(product)
             request.session['cart'] = cart
             print(cart[product])
-            return JsonResponse({"status": "success", "product": product})
+            return JsonResponse({"status": "success", "quantity": quantity, "product": product})
 

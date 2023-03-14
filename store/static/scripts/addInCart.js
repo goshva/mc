@@ -1,70 +1,46 @@
-let btnSub = document.getElementById('addInCart');
-let formElem = document.getElementById('addInCart')
+let btnSub = document.querySelectorAll('#addInCart');
 let csrfToken = getCookie('csrftoken')
-// const data = new URLSearchParams(new FromData(formElem));
-// Отправка запроса по кнопке
-btnSub.onclick = function(e) {
+let cartNE = document.getElementById('cart_quantity_label')
+let prodQuant;
 
-    e.preventDefault();
 
-    if(document.getElementsByName('product')){
-        let prodId = document.getElementById('productId').value;
-        alert(prodId);
+if(document.getElementById('prodQuant')){
+    prodQuant = document.getElementById('prodQuant').value;
+    console.log(prodQuant)
+} else { prodQuant = 1 }
 
-        sendRequest(prodId)
-    }
-}
 
-function sendRequest(prodId) {
-    fetch("cart", {
-        method: 'POST',
-        headers: {
-            "Accept": 'application/json',
-            "Content-Type": 'application/json',
-            "X-CSRFToken": csrfToken,
-        },
-        body: JSON.stringify({
-            'product': prodId
+btnSub.forEach((btn) => {
+    btn.addEventListener('click', function(event){
+        event.preventDefault();
+
+        let prodId = event.target.closest('.btn-block').querySelector('#productId').value
+        console.log(typeof(+prodId))
+
+        sendRequest(+prodId)
+    })
+
+    function sendRequest(prodId) {
+        fetch("cart", {
+            method: 'POST',
+            headers: {
+                "Accept": 'application/json',
+                "Content-Type": 'application/json',
+                "X-CSRFToken": csrfToken,
+            },
+            body: JSON.stringify({
+                'product': prodId,
+                'prodQuant': +prodQuant,
+            })
         })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-    })
-    .catch(er => console.log("Error: ", er))
-}
-
-
-// Отправка запроса через форму
-
-// formElem.onsubmit = async (e) => {
-
-//     e.preventDefault();
-
-//     await fetch('cart', {
-//         method: 'POST',
-//         body: new FormData(formElem)
-//     })
-//     .then(response => {
-//         console.log(response);
-//         response.json();
-//     })
-//     .then(data => console.log(data))
-//     .catch(er => console.log("Error: ", er))
-
-
-
-//     // let response = await fetch('/cart', {
-//     //     method: 'POST',
-//     //     body: new FormData(formElem),
-//     // });
-
-//     // console.log(response.json())
-//     // let res = await response.json()
-
-//     // onsole.log(response)
-// }
-
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            
+    
+        })
+        .catch(er => console.log("Error: ", er))
+}})
 
 
 function getCookie(name) {

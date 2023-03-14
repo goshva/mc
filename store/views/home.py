@@ -46,6 +46,7 @@ class Index(View):
         return HttpResponseRedirect(f'/store{request.get_full_path()[1:]}')
 
 def store(request):
+    
     cart = request.session.get('cart')
     if not cart:
         request.session['cart'] = {}

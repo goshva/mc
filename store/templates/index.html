@@ -46,9 +46,8 @@
 							Подробнее...
 						</button>
 						</p>
-
 						{% if product|is_in_cart:request.session.cart %}
-						<p>{{product|cart_quantity:request.session.cart}} в корзине</p>
+							<p id="cart_quantity_label" style="display: none;"></p>
 						{% endif %}
 
 						<div class="modal" id="modalWin{{product.id}}">
@@ -137,25 +136,23 @@
 
 					<div class="card-footer p-0 no-gutters">
 
-						{% if product|is_in_cart:request.session.cart %}
-						
-						<div class="row no-gutters">
-							<form action="/#{{product.id}}" method="post" class="col d-flex  justify-content-between"  style="display: flex; gap: 5px;">
+						<!-- {% if product|is_in_cart:request.session.cart %} -->
+						<div class="row no-gutters cart-not-empty">
+							<form  class="col d-flex  justify-content-between"  style="display: flex; gap: 5px;">
 								{% csrf_token %}
 								<input hidden type="text" name='product' value='{{product.id}}'>
-								<input class="col-5 form-control" type="number" value="1" max="99999" min="1" name='fixed'>
-								<input class="text-center float-right col-6 btn btn-warning" type="submit" name='add'
-								value=" В корзину">
+								<input class="col-5 form-control" id='prodQuant' type="number" value="1" max="99999" min="1">
+								<input class="text-center float-right col-6 btn btn-warning" id="addInCart" type="submit" value=" В корзину">
 							</form>
-							
 						</div>
-						{% else %}
-						<form class="btn-block">
+						<!-- {% else %} -->
+						<form class="btn-block" id="addForm">
 							{% csrf_token %}
-							<input hidden type="text" name='product' id="productId" value='{{product.id}}'>
-							<input id="addInCart"  class="btn btn-warning form-control" value="Добавить в корзину">
+							<input hidden type="text" name="product" id="productId" value="{{product.id}}">
+							<input id="addInCart" class="btn btn-warning form-control" value="Добавить в корзину">
 						</form>
-						{% endif %}
+
+						<!-- {% endif %} -->
 
 					</div>
 
