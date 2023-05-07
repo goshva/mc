@@ -3,17 +3,19 @@ from django.utils import timezone
 from django.db import models
 from django.utils.html import mark_safe
 from .category import Category
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 class Products(models.Model):
     name = models.CharField(max_length=260, blank=True, null=True)
     price= models.IntegerField(default=0, blank=True, null=True)
-    price_5k = models.FloatField(blank=True,null=True)
-    price_10k = models.FloatField(blank=True,null=True)
-    price_20k = models.FloatField(blank=True,null=True)
-    price_many = models.FloatField(blank=True,null=True)
+    price_5k = models.FloatField(blank=True,null=True,default=88,)
+    price_10k = models.FloatField(blank=True,null=True,default=84,)
+    price_20k = models.FloatField(blank=True,null=True,default=79,)
+    price_many = models.FloatField(blank=True,null=True,default=70,)
     kind = models.CharField(max_length=300, blank=True, null=True)
     category= models.ForeignKey(Category,on_delete=models.CASCADE,default=1, blank=True, null=True )
     description= models.CharField(max_length=250, default='', blank=True, null= True)
-    photo_url = models.CharField(max_length=3000,null=True)
+    photo_url = models.CharField(max_length=3000,null=True,blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=200, blank=True, null=True)
     description = models.CharField(max_length=300, blank=True, null=True)
@@ -21,7 +23,7 @@ class Products(models.Model):
     article = models.CharField(max_length=20, blank=True, null=True)
     color = models.CharField(max_length=250, blank=True, null=True)
     size = models.FloatField(blank=True,null=True)
-    weight = models.FloatField(blank=True,null=True)
+    weight = models.FloatField(blank=True,null=True,default=45,)
     created_date = models.DateTimeField(default=timezone.now, blank=True, null=True)
     published_date = models.DateTimeField(blank=True, null=True)
     image= models.ImageField(upload_to='uploads/products/', blank=True, null=True)
@@ -37,7 +39,7 @@ class Products(models.Model):
         return Products.objects.filter (id__in=ids)
     @staticmethod
     def get_all_products():
-        return Products.objects.all().exclude(image='') #только с каринками
+        return Products.objects.all().order_by('article')  #только с каринками
 
     @staticmethod
     def get_all_products_by_categoryid(category_id):
